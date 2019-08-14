@@ -1,3 +1,21 @@
-#index:
+# index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# Home
+index:
+   path: /
+   controller: App\Controller\HomeController::index
+# Entradas (Formulario Creacion y edicion)
+
+# Blog (Listado de entradas)
+blog_list:
+   path: /blog
+   controller: App\Controller\BlogController::index
+
+# Ver Blog
+blog_show:
+   path: /blog/{slug}
+   controller: App\Controller\BlogController::show   
+
+# Contacto
