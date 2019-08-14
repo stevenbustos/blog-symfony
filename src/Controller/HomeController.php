@@ -14,6 +14,9 @@ class HomeController extends AbstractController
     {
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
+            'nav_home' => true,
+            'nav_blog' => false,
+            'nav_contact' => false,
         ]);
     }
 }

@@ -3,7 +3,7 @@
 #    controller: App\Controller\DefaultController::index
 
 # Home
-index:
+home:
    path: /
    controller: App\Controller\HomeController::index
 # Entradas (Formulario Creacion y edicion)
@@ -19,3 +19,6 @@ blog_show:
    controller: App\Controller\BlogController::show   
 
 # Contacto
+create_contact:
+   path: /contact
+   controller: App\Controller\ContactController::show 
