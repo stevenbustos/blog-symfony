@@ -8,7 +8,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\ContactType;
-use App\Repository\ContactRepository;
 use App\Entity\Contact;
 
 class ContactController extends AbstractController
@@ -16,7 +15,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/contact", name="contact_list")
      */
-    public function show(ContactRepository $contactRepository)
+    public function show()
     {
         $repository = $this->getDoctrine()->getRepository(Contact::class);
         $contacts = $repository->findAll();

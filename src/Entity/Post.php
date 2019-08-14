@@ -27,13 +27,12 @@ class Post
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="posts")
-     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     * @ORM\Column(type="string", length=255)
      */
     private $author;
 
@@ -88,12 +87,12 @@ class Post
         return $this;
     }
 
-    public function getAuthor(): ?Author
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
 
-    public function setAuthor(?Author $author): self
+    public function setAuthor(?string $author): self
     {
         $this->author = $author;
 
@@ -122,5 +121,19 @@ class Post
         $this->content = $content;
 
         return $this;
+    }
+
+    /**
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function updatedTimestamps()
+    {
+        $this->getUpdatedAt(new \DateTime('now'));
+
+        if ($this->getCreatedAt() == null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 }

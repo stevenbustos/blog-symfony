@@ -13,10 +13,15 @@ blog_list:
    path: /blog
    controller: App\Controller\BlogController::index
 
-# Ver Blog
+# Ver Post
 blog_show:
-   path: /blog/{slug}
-   controller: App\Controller\BlogController::show   
+   path: /post/{slug}
+   controller: App\Controller\BlogController::show 
+   
+# Nuevo Post
+create_blog:
+   path: /blog/new
+   controller: App\Controller\BlogController::new 
 
 # Contacto
 create_contact:
