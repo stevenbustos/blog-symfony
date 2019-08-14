@@ -20,5 +20,5 @@ blog_show:
 
 # Contacto
 create_contact:
-   path: /contact
-   controller: App\Controller\ContactController::show 
+   path: /contact/new
+   controller: App\Controller\ContactController::new 
