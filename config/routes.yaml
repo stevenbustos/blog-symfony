@@ -15,8 +15,18 @@ blog_list:
 
 # Ver Post
 blog_show:
-   path: /post/{slug}
+   path: /post/{id}
    controller: App\Controller\BlogController::show 
+
+# Ver Preview del Post
+post_preview:
+   path: /post/preview/{id}
+   controller: App\Controller\BlogController::preview
+
+# Borrar Post
+post_delete:
+   path: /post/delete/{id}
+   controller: App\Controller\BlogController::delete
    
 # Nuevo Post
 create_blog:

@@ -19,9 +19,11 @@
                 {{ post.content }}
             </div>
             <div class="col">
-                <img src="{{ asset('uploads/images/') ~ post.image }}" width="300" height="300" class="d-inline-block align-top" alt="">
+                <img src="{{ asset('uploads/images/') ~ post.image }}" width="100%" height="100%" class="d-inline-block align-top" alt="">
             </div>
         </div>
+        <a class="btn btn-primary" href="{{ path('update_blog', { 'id': post.id }) }}" type="button">Edit</a>
+        <a class="btn btn-primary" href="{{ path('blog_list') }}" type="button">Back</a>
         </p>
     </div>
 {% endblock %}

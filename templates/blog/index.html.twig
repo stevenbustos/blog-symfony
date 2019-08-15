@@ -7,56 +7,69 @@
 {% block body %}
     <div class="row">
         <div class="col">
-            <table class="table table-hover table-striped table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for post in posts %}
+            {% if posts != null %}
+                <table class="table table-hover table-striped table-dark" id="posts">
+                    <thead>
                         <tr>
-                            <td>{{ post.title }}</td>
-                            <td>{{ post.author }}</td>
-                            <td>{{ post.createdAt|date("m/d/Y") }}</td>
-                            <td>
-                                <div class="btn-group" role="group">
-                                    <a class="btn btn-primary" type="button">Preview</a>
-                                    {% set foo = 'bar' %}
-                                    <a class="btn btn-primary" href="{{ path('post_show', { 'id': post.id }) }}" type="button">Full Post</a>
-                                    <a class="btn btn-primary" href="{{ path('update_blog', { 'id': post.id }) }}" type="button">Edit</a>
-                                </div>
-                            </td>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Date</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for post in posts %}
+                            <tr>
+                                <td>{{ post.title }}</td>
+                                <td>{{ post.author }}</td>
+                                <td>{{ post.createdAt|date("m/d/Y") }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a class="btn btn-primary" href="{{ path('post_show', { 'id': post.id }) }}" type="button">Full Post</a>
+                                        <a class="btn btn-primary" href="{{ path('update_blog', { 'id': post.id }) }}" type="button">Edit</a>
+                                        <button class="btn btn-primary btn-delete" postid="{{ post.id }}">Delete</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <br>
+                <a class="btn btn-primary" href="{{ path('create_blog') }}" type="button">New Post</a>
+            {% else %}
+                <a class="btn btn-primary" href="{{ path('create_blog') }}" type="button">New Post</a>
+            {% endif %}
         </div>
         <div class="col">
-
-
-            <div class="jumbotron">
-                <h1 class="display-4">TITULO</h1>
-                <p class="lead">
-                    AUTOR
-                    <br>
-                    FECHA
-                </p>
-                <hr class="my-4">
-                <p>
-                    <div class="row">
-                        <div class="col">
-                            CONTENIDO
-                        </div>
-                        <div class="col">
-                            IMAGEN
-                        </div>
+            {% if posts == null %}
+                <div class="container">
+                    <div class="jumbotron">
+                        <h1 class="display-4">Add a new post</h1>
+                        <p class="lead">
+                            There are no post in the blog yet
+                        </p>
+                        <hr class="my-4">
+                        <p>
+                            Add a new interesting post
+                        </p>
                     </div>
-                </p>
-            </div>
-            
+                </div>
+            {% else %}
+                {% set firstId = posts[0].id %}
+                {{ render(path('post_preview', { 'id': firstId })) }}
+            {% endif %}
         </div>
     </div>
+    {% block javascripts %}
+        <script>
+            const posts = document.getElementById('posts');
+            if (posts) {
+                posts.addEventListener('click', e => {
+                    if (e.target.className === 'btn btn-primary btn-delete') {
+                        const id = e.target.getAttribute('postId');
+                        fetch (`/post/delete/${id}`, {method: 'DELETE'}).then(res => window.location.reload());
+                    }
+                });
+            }
+        </script>
+    {% endblock %}
 {% endblock %}

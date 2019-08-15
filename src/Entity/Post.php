@@ -124,13 +124,17 @@ class Post
     }
 
     /**
-     *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function updatedTimestamps()
     {
-        $this->getUpdatedAt(new \DateTime('now'));
+
+        if ($this->getUpdatedAt() == null) {
+            $this->setUpdatedAt(new \DateTime('now'));
+        } else {
+            $this->setUpdatedAt(new \DateTime('now'));
+        }
 
         if ($this->getCreatedAt() == null) {
             $this->setCreatedAt(new \DateTime('now'));

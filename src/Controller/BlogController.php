@@ -128,4 +128,35 @@ class BlogController extends AbstractController
             'nav_contact' => false,
         ]);
     }
+
+    /**
+     * @Route("/post/preview/{id}", name="post_preview")
+     */
+    public function preview($id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $post = $repository->find($id);
+
+        return $this->render('blog/preview.html.twig', [
+            'post' => $post,
+            'nav_home' => false,
+            'nav_blog' => true,
+            'nav_contact' => false,
+        ]);
+    }
+
+    /**
+     * @Route("/post/delete/{id}", name="post_delete")
+     */
+    public function delete(EntityManagerInterface $em, Request $request, $id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $post = $repository->find($id);
+
+        $em->remove($post);
+        $em->flush();
+
+        $response = new Response();
+        $response->send();
+    }
 }
