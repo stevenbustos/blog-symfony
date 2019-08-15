@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('images/guitar.ico') }}" />
+        <title>
+            {% block title %}Blog!
+            {% endblock %}
+        </title>
+        {% block stylesheets %}
+            <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+            <script crossorigin="anonymous" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% endblock %}
     </head>
+
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand abs" href="{{ path('home') }}">
+                    <img src="{{ asset('images/guitar.svg') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+                    Musical Blog
+                </a>
+                <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbarNav" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        {% if nav_home == true %}
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('home') }}">Home
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ path('blog_list') }}">Blogs</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ path('create_contact') }}">Contact</a>
+                            </li>
+                        {% elseif nav_blog == true %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('home') }}">Home
+                                </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('blog_list') }}">Blogs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('create_contact') }}">Contact</a>
+                            </li>
+                        {% elseif nav_contact == true %}
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ path('home') }}">Home
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="{{ path('blog_list') }}">Blogs</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('create_contact') }}">Contact</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="container">
+        <br>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+            {% block body %}
+                {% block javascripts %}{% endblock %}
+            {% endblock %}
+        </div>
     </body>
 </html>

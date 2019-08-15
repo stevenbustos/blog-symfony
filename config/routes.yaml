@@ -1,3 +1,44 @@
-#index:
+# index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+# Home
+home:
+   path: /
+   controller: App\Controller\HomeController::index
+# Entradas (Formulario Creacion y edicion)
+
+# Blog (Listado de entradas)
+blog_list:
+   path: /blog
+   controller: App\Controller\BlogController::index
+
+# Ver Post
+blog_show:
+   path: /post/{id}
+   controller: App\Controller\BlogController::show 
+
+# Ver Preview del Post
+post_preview:
+   path: /post/preview/{id}
+   controller: App\Controller\BlogController::preview
+
+# Borrar Post
+post_delete:
+   path: /post/delete/{id}
+   controller: App\Controller\BlogController::delete
+   
+# Nuevo Post
+create_blog:
+   path: /blog/new
+   controller: App\Controller\BlogController::new 
+
+# Editar Post
+update_blog:
+   path: /blog/edit/{id}
+   controller: App\Controller\BlogController::update
+
+# Contacto
+create_contact:
+   path: /contact/new
+   controller: App\Controller\ContactController::new 

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Edit {{ post.title }}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-4">New post</h1>
+        <p class="lead">Create a new post with a image.</p>
+        <hr class="my-4">
+        <p>
+            {{ form_start(postForm) }}
+            {{ form_widget(postForm) }}
+            <button class="btn btn-primary" type="submit">Send!</button>
+            <a class="btn btn-primary" href="{{ path('blog_list') }}" type="button">Back</a>
+            {{ form_end(postForm) }}
+        </p>
+    </div>
+{% endblock %}
