@@ -33,7 +33,8 @@ class ContactController extends AbstractController
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
-        $form = $this->createForm(ContactType::class);
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

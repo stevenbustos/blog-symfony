@@ -1,24 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-    {{ slug }}
-{% endblock %}
-{% block body %}
-    <h1>Hello
-        {{ controller_name }}! ✅</h1>
-    <h1>Hello
-        {{ slug }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at
-            <code>
-                <a href="{{ '/home/steven/Documents/Development/blog-symfony/src/Controller/BlogController.php'|file_link(0) }}">src/Controller/BlogController.php</a>
-            </code>
-        </li>
-        <li>Your template at
-            <code>
-                <a href="{{ '/home/steven/Documents/Development/blog-symfony/templates/blog/index.html.twig'|file_link(0) }}">templates/blog/index.html.twig</a>
-            </code>
-        </li>
-    </ul>
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-4">{{ post.title }}</h1>
+        <p class="lead">
+            {{ post.author }}
+            <br>
+            {{ post.createdAt|date("m/d/Y") }}
+        </p>
+        <hr class="my-4">
+        <p>
+        <div class="row">
+            <div class="col">
+                {{ post.content }}
+            </div>
+            <div class="col">
+                <img src="{{ asset('uploads/images/') ~ post.image }}" width="300" height="300" class="d-inline-block align-top" alt="">
+            </div>
+        </div>
+        </p>
+    </div>
 {% endblock %}

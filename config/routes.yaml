@@ -23,6 +23,11 @@ create_blog:
    path: /blog/new
    controller: App\Controller\BlogController::new 
 
+# Editar Post
+update_blog:
+   path: /blog/edit/{id}
+   controller: App\Controller\BlogController::update
+
 # Contacto
 create_contact:
    path: /contact/new

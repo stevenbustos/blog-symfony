@@ -1,31 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Posts
+{% block title %}
+    Posts
 {% endblock %}
 
 {% block body %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Title</th>
-                <th scope="col">Author</th>
-                <th scope="col">Date</th>
-                <th scope="col">Image</th>
-                <th scope="col">Message</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.createdAt|date("m/d/Y") }}</td>
-                <td>
-                    <img src="{{ asset('uploads/images/') ~ post.image }}" width="30" height="30" class="d-inline-block align-top" alt="">
-                </td>
-                <td>{{ post.content }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.author }}</td>
+                            <td>{{ post.createdAt|date("m/d/Y") }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a class="btn btn-primary" type="button">Preview</a>
+                                    {% set foo = 'bar' %}
+                                    <a class="btn btn-primary" href="{{ path('post_show', { 'id': post.id }) }}" type="button">Full Post</a>
+                                    <a class="btn btn-primary" href="{{ path('update_blog', { 'id': post.id }) }}" type="button">Edit</a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col">
+
+
+            <div class="jumbotron">
+                <h1 class="display-4">TITULO</h1>
+                <p class="lead">
+                    AUTOR
+                    <br>
+                    FECHA
+                </p>
+                <hr class="my-4">
+                <p>
+                    <div class="row">
+                        <div class="col">
+                            CONTENIDO
+                        </div>
+                        <div class="col">
+                            IMAGEN
+                        </div>
+                    </div>
+                </p>
+            </div>
+            
+        </div>
+    </div>
 {% endblock %}

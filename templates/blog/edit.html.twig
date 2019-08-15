@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Post
+{% block title %}
+    Edit {{ post.title }}
 {% endblock %}
 
 {% block body %}
@@ -11,6 +12,7 @@
         <p>
             {{ form_start(postForm) }}
             {{ form_widget(postForm) }}
+            {# {{ form_row(postForm.image) }} #}
             <button class="btn btn-primary" type="submit">Send!</button>
             {{ form_end(postForm) }}
         </p>

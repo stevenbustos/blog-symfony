@@ -33,7 +33,9 @@ class BlogController extends AbstractController
      */
     public function new(EntityManagerInterface $em, Request $request)
     {
-        $form = $this->createForm(PostType::class);
+        $post = new Post();
+
+        $form = $this->createForm(PostType::class, $post);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isvalid()){
@@ -69,13 +71,58 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/post/{slug}", name="post_show")
+     * @Route("/blog/edit/{id}", name="update_blog")
      */
-    public function show($slug)
+    public function update($id, EntityManagerInterface $em, Request $request)
     {
+        $post = new Post();
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $post = $repository->find($id);
+
+        $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isvalid()){
+            
+            $post->updatedTimestamps();
+            $postImage = $form['image']->getData();
+
+            if ($postImage) {
+                $newFilename = md5(uniqid()).'.'.$postImage->guessExtension();
+                $postImage->move(
+                    $this->getParameter('images_directory'),
+                    $newFilename
+                );
+
+                $post->setImage($newFilename);
+            }
+
+            $em->flush();
+
+            $this->addFlash('success', 'Your post has been updated');
+
+            return $this->redirectToRoute('blog_list');
+        }
+
+        return $this->render('blog/edit.html.twig', [
+            'postForm' => $form->createView(),
+            'post' => $post,
+            'nav_home' => false,
+            'nav_blog' => true,
+            'nav_contact' => false,
+        ]);
+    }
+
+    /**
+     * @Route("/post/{id}", name="post_show")
+     */
+    public function show($id)
+    {
+        $repository = $this->getDoctrine()->getRepository(Post::class);
+        $post = $repository->find($id);
+
         return $this->render('blog/show.html.twig', [
-            'controller_name' => 'BlogController',
-            'slug' => ucwords(str_replace('-', ' ', $slug)),
+            'post' => $post,
             'nav_home' => false,
             'nav_blog' => true,
             'nav_contact' => false,
