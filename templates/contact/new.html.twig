@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Contact
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-4">Contact Us</h1>
+        <p class="lead">Stay in contact with us.</p>
+        <hr class="my-4">
+        <p>
+            {{ form_start(contactForm) }}
+            {{ form_widget(contactForm) }}
+            <button class="btn btn-primary" type="submit">Send!</button>
+            {{ form_end(contactForm) }}
+        </p>
+    </div>
+{% endblock %}
