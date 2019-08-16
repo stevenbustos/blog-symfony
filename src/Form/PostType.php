@@ -24,6 +24,7 @@ class PostType extends AbstractType
                 'required' => false,
             ])
             ->add('content', TextareaType::class)
+            ->add('subtitle')
         ;
     }
 

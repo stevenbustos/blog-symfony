@@ -54,7 +54,7 @@
                     </div>
                 </div>
             {% else %}
-                {% set firstId = posts[0].id %}
+                {% set firstId = posts[0].id %}                
                 {{ render(path('post_preview', { 'id': firstId })) }}
             {% endif %}
         </div>

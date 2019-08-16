@@ -37,6 +37,11 @@ class Post
     private $author;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $subtitle;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $image;
@@ -95,6 +100,18 @@ class Post
     public function setAuthor(?string $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
 
         return $this;
     }
